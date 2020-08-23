@@ -1,0 +1,48 @@
+﻿@model StoreSystem.UI.Models.CategoryListViewModel
+
+@{
+    ViewBag.Title = "Category/List";
+}
+<h2>Category List</h2>
+
+<br />
+<br />
+<div>
+
+
+    @using (Html.BeginForm("List", "Category", FormMethod.Get))
+    {
+        @Html.TextBox("categoryName")
+        <input type="submit" value="Search" />
+    }
+    <br />
+</div>
+
+<div>
+    <table class="table table-responsive">
+        <thead>
+        <tr style="font-size: larger">
+            CategoryName
+        </tr>
+        </thead>
+        <tbody>
+            @if (Model.Categories.Count() == 0)
+            {
+                <tr>
+                    <td colspan="3" style="color: red">
+                        No Match Any Document
+                    </td>
+                </tr>
+            }
+
+            else
+            {
+                @foreach (var category in Model.Categories)
+                {
+                    <tr>
+                        <td>@category.CategoryName</td>
+                    </tr>
+                }
+            }
+    </table>
+</div>

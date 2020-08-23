@@ -1,0 +1,62 @@
+﻿@model StoreSystem.UI.Models.ProductListViewModel
+
+@{
+    ViewBag.Title = "Product/List";
+}
+<h2>Product List</h2>
+<form id="ExcelUpload">
+    <div>
+        <input type="file" id="ExcelFileUpload" class="file">
+        <span style="color:red;font:bolder;" id="fileErrorMessage"></span>
+        <button type="button" onclick="UploadExcel()">Upload</button>
+    </div>
+</form>
+<script>
+
+$(document).ready(function () {
+
+//validating uploaded file whether it is Excel or not while uploading
+        $("#ExcelFileUpload").change(function () {
+            fileErrorMessage.innerHTML = '';
+            var vtrUpload = $("#ExcelFileUpload").val().toLowerCase();
+            var regexVTRUpload = new RegExp("(.*?)\.(xlsx|xls)$");
+            if (!(regexVTRUpload.test(vtrUpload))) {
+                fileErrorMessage.innerHTML = 'Please select .xls or .xlsx files';
+            }
+        });
+        });
+
+    function UploadExcel()
+    {
+        var formdata = new FormData(); //FormData object
+        var fileInput = document.getElementById('ExcelFileUpload');
+        var filename = fileInput.files[0].name
+        var extension = filename.split('.').pop().toUpperCase();
+        if (extension != "XLS" && extension != "XLSX") {
+            fileErrorMessage.innerHTML = 'Please select .xls or .xlsx files';
+        }
+        else
+        {
+        //Iterating through each files selected in fileInput
+        for (i = 0; i < fileInput.files.length; i++) {
+            //Appending each file to FormData object
+            formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        }
+
+        $.ajax({
+            url:  '@Url.Action("ReadExcelFile", "ExcelUpload")', //ReadExcelFile is a Action Name and ExcelUpload is Controller name
+            type: 'POST',
+            data: formdata, // Posting the uploaded excel file to controller
+            async: false,
+            success: function (data) {
+                if (data) {
+                    Alert("Upload successfully")
+                }
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+        }
+    }
+</script>  

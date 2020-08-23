@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Aspects\Autofac\Caching\" />
+    <Folder Include="Aspects\Autofac\Exception\" />
+    <Folder Include="Aspects\Autofac\Logging\" />
+    <Folder Include="Aspects\Autofac\Performance\" />
+    <Folder Include="Aspects\Postsharp\Caching\" />
+    <Folder Include="Aspects\Postsharp\Exception\" />
+    <Folder Include="Aspects\Postsharp\Logging\" />
+    <Folder Include="Aspects\Postsharp\Performance\" />
+    <Folder Include="Aspects\Postsharp\Transaction\" />
+    <Folder Include="Aspects\Postsharp\Validation\" />
+    <Folder Include="CrossCuttingConcerns\Caching\" />
+    <Folder Include="CrossCuttingConcerns\Logging\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="5.0.0" />
+    <PackageReference Include="FluentValidation" Version="8.5.0" />
+    <PackageReference Include="PostSharp" Version="4.2.17" />
+  </ItemGroup>
+
+</Project>

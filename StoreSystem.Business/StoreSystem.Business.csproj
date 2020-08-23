@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="5.0.0" />
+    <PackageReference Include="FluentValidation" Version="8.5.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StoreSystem.Core\StoreSystem.Core.csproj" />
+    <ProjectReference Include="..\StoreSystem.DataAcccesLayer\StoreSystem.DataAcccesLayer.csproj" />
+    <ProjectReference Include="..\StoreSystem.Entities\StoreSystem.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

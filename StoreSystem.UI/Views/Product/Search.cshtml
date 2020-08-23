@@ -1,0 +1,45 @@
+﻿@model StoreSystem.UI.Models.ProductListViewModel
+
+@{
+    ViewBag.Title = "Product/Search";
+}
+<h2>Product Search</h2>
+
+
+@using (Html.BeginForm("Search", "Product", FormMethod.Get))
+{
+    @Html.TextBox("productName")<input type="submit" value="Search"/>
+}
+<div>
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Unit Price</th>
+            <th>Units In Stock</th>
+        </tr>
+        </thead>
+        <tbody>
+            @if (Model.Products.Count() == 0)
+            {
+                <tr>
+                    <td colspan="3" style="color: red">
+                        No Match Any Product
+                    </td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var product in Model.Products)
+                {
+                    
+                    <tr>
+                        <td>@product.ProductName</td>
+                        <td>@product.UnitPrice</td>
+                        <td>@product.UnitsInStock</td>
+                    </tr>
+                }
+            }
+        
+    </table>
+</div>
