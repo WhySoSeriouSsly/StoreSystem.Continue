@@ -44,6 +44,14 @@ namespace StoreSystem.UI.Controllers
             };
             return View(productListViewModel);
         }
+
+        [HttpGet]
+        public IActionResult List2(string productName)
+        {
+            var list = _productService.GetAll(productName);
+
+            return Ok(list);
+        }
         public ActionResult Add()
         {
             var model = new ProductAddViewModel

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using FluentValidation;
 using StoreSystem.Business.Abstract;
 using StoreSystem.Business.ValidationRules;
 using StoreSystem.Business.ValidationRules.FluentValidation;
+using StoreSystem.Core.Aspects.Autofac.Caching;
+using StoreSystem.Core.Aspects.Autofac.Performance;
 using StoreSystem.Core.Aspects.Autofac.Transaction;
 using StoreSystem.Core.Aspects.Autofac.Validation;
 using StoreSystem.Core.CrossCuttingConcerns.Validation;
@@ -23,8 +26,9 @@ namespace StoreSystem.Business.Concrete
         {
             _productDal = productDal;  //NHİBERNATE ,DAPPER VAR 
         }
-
+        
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public void Add(Product product)
         {
             _productDal.Add(product);
@@ -46,9 +50,11 @@ namespace StoreSystem.Business.Concrete
         {
             _productDal.Delete(new Product { ProductId = productId });
         }
-
+        //[CacheAspect(duration: 1)]
+        [PerformanceAspect(5)]
         public List<Product> GetAll(string productName)
         {
+           // Thread.Sleep(6000);
             return _productDal.GetList(p => p.ProductName == productName || productName == null);
         }
 
@@ -61,7 +67,7 @@ namespace StoreSystem.Business.Concrete
         {
             return _productDal.GetList(filter: p => p.CategoryId == categoryId || categoryId == 0);
         }
-         [TransactionScopeAspects]
+        [TransactionScopeAspects]
         public void TransactionalOperations(Product product)
         {
             _productDal.Add(product);
@@ -79,9 +85,10 @@ namespace StoreSystem.Business.Concrete
 
 
         [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public void Update(Product product)
         {
-                _productDal.Update(product);
+            _productDal.Update(product);
         }
 
         //[ValidationAspect(typeof(ProductValidator))]

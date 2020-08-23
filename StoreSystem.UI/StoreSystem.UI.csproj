@@ -10,6 +10,7 @@
     <PackageReference Include="FastMember" Version="1.5.0" />
     <PackageReference Include="FluentValidation" Version="8.5.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.5.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="8.5.0" />
     <PackageReference Include="iTextSharp.LGPLv2.Core" Version="1.6.7" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />

@@ -1,10 +1,19 @@
+using System.Diagnostics;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StoreSystem.Business.ValidationRules.FluentValidation;
+using StoreSystem.Core.CrossCuttingConcerns.Caching;
+using StoreSystem.Core.CrossCuttingConcerns.Caching.Microsoft;
+using StoreSystem.Core.DependencyResolvers;
+using StoreSystem.Core.Extensions;
+using StoreSystem.Core.Utilities.IoC;
+using StoreSystem.Entities.Concrete;
 
 namespace StoreSystem.UI
 {
@@ -20,10 +29,11 @@ namespace StoreSystem.UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().
-              AddFluentValidation(fv => 
-                  fv.RegisterValidatorsFromAssemblyContaining<ProductValidator>());
-
+            services.AddControllersWithViews().AddFluentValidation();
+            services.AddDependencyResolvers(new ICoreModule[]
+            {
+                new CoreModule(),
+            });
 
             //dependencies
             //   services.AddDependencies();
@@ -58,7 +68,7 @@ namespace StoreSystem.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Product}/{action=List}/{id?}");
+                    pattern: "{controller=Product}/{action=Add}/{id?}");
             });
         }
     }
