@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using FluentValidation;
 using StoreSystem.Business.Abstract;
 using StoreSystem.Business.ValidationRules;
@@ -26,7 +27,7 @@ namespace StoreSystem.Business.Concrete
         private IProductDal _productDal;
         public ProductManager(IProductDal productDal)
         {
-            _productDal = productDal; 
+            _productDal = productDal;
         }
 
         [ValidationAspect(typeof(ProductValidator))]
@@ -49,44 +50,48 @@ namespace StoreSystem.Business.Concrete
 
         #endregion
 
-
+        [PerformanceAspect(5)]
+        [CacheRemoveAspect("IProductService.Get")]
         public void Delete(int productId)
         {
             _productDal.Delete(new Product { ProductId = productId });
         }
-     //   [CacheAspect(duration: 1)]
-       // [PerformanceAspect(5)]
-        public List<Product> GetAll(string productName)
-        {
-           // Thread.Sleep(6000);
-            return _productDal.GetList(p => p.ProductName == productName || productName == null);
-        }
-        public IEnumerable<Product> getAllDesc()
+        // [CacheAspect(duration: 1)]
+        // [PerformanceAspect(5)]
+        public  List<Product> GetAll(string productName)
         {
             // Thread.Sleep(6000);
-            return _productDal.GetList().OrderByDescending(t=>t.ProductId).Take(10);
+            return  _productDal.GetList(p => p.ProductName == productName || productName == null);
         }
-
+        [PerformanceAspect(5)]
+        public IEnumerable<Product> GetAllDesc()
+        {
+            // Thread.Sleep(6000);
+            return _productDal.GetList().OrderByDescending(t => t.ProductId).Take(10);
+        }
+        [PerformanceAspect(5)]
         public List<Product> DocumentsGetAll()
         {
             return _productDal.GetList();
         }
-
+        [PerformanceAspect(5)]
         public List<Product> GetByCategory(int categoryId)
         {
             return _productDal.GetList(filter: p => p.CategoryId == categoryId || categoryId == 0);
         }
         [TransactionScopeAspects]
+        [PerformanceAspect(5)]
         public void TransactionalOperations(Product product)
         {
             _productDal.Add(product);
             _productDal.Update(product);
         }
-
+        [PerformanceAspect(5)]
         public Product GetById(int productId)
         {
             return _productDal.Get(p => p.ProductId == productId);
         }
+        [PerformanceAspect(5)]
         public List<Product> GetByName(string productName)
         {
             return _productDal.GetList(p => p.ProductName.Contains(productName) || productName == null);
@@ -95,6 +100,7 @@ namespace StoreSystem.Business.Concrete
 
         [ValidationAspect(typeof(ProductValidator))]
         [CacheRemoveAspect("IProductService.Get")]
+        [PerformanceAspect(5)]
         public void Update(Product product)
         {
             _productDal.Update(product);

@@ -10,5 +10,5 @@ namespace StoreSystem.Business.Abstract
     {
         byte[] ExcelFileGet();
         string PdfFileGet();
-        }
+    }
 }

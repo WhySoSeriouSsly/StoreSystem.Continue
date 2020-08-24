@@ -37,11 +37,11 @@ namespace StoreSystem.UI.Controllers
             _fileService = fileService;
         }
         [HttpGet]
-        public IActionResult List(string productName)
+        public  ActionResult List(string productName)
         {
             var productListViewModel = new ProductListViewModel
             {
-                Products = _productService.GetAll(productName)
+                Products =  _productService.GetAll(productName)
             };
             return View(productListViewModel);
         }
@@ -75,7 +75,7 @@ namespace StoreSystem.UI.Controllers
             //category dolu gelmesi lazım o yüzden hata alırız.
         }
 
-        public ActionResult add2()
+        public ActionResult ServerSideValidationTest()
         {
             _productService.Add(new Product { ProductName = "NAZIM", CategoryId = 2 });
             return Ok();
@@ -125,7 +125,7 @@ namespace StoreSystem.UI.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult Search(string? productName)
+        public ActionResult Search(string productName)
         {
             var productListViewModel = new ProductListViewModel
             {
@@ -139,7 +139,7 @@ namespace StoreSystem.UI.Controllers
         {
             _productService.TransactionalOperations(new Product
             {
-                ProductName = "Çeto",
+                ProductName = "Bisküvi",
                 CategoryId = 2,
                 UnitPrice = 5
             });
@@ -157,9 +157,9 @@ namespace StoreSystem.UI.Controllers
             return File("/documents/" + fileName, "application/pdf", fileName);
         }
 
-        public IActionResult GetaAllDesc()
+        public IActionResult GetFirstTenRecord()
         {
-            var result = _productService.getAllDesc();
+            var result = _productService.GetAllDesc();
             return View(result);
         }
     }
