@@ -24,9 +24,9 @@ namespace StoreSystem.Business.Concrete
     {
         //private readonly IValidator<Product> _productValidator;
         private IProductDal _productDal;
-        public ProductManager(IProductDal productDal, IValidator<Product> productValidator)
+        public ProductManager(IProductDal productDal)
         {
-            _productDal = productDal;  //NHİBERNATE ,DAPPER VAR 
+            _productDal = productDal; 
         }
 
         [ValidationAspect(typeof(ProductValidator))]
@@ -37,6 +37,8 @@ namespace StoreSystem.Business.Concrete
 
         }
 
+        #region ManuelValidation
+
         //public void Add(Product product)
         //{
 
@@ -45,22 +47,18 @@ namespace StoreSystem.Business.Concrete
         //    ;
         //    // throw new ValidationException(validateResult.Errors);
 
-        //}
-        /// <summary>
-        ///
-        /// 
-        /// </summary>
-        /// <param name="productId"></param>
+        #endregion
+
 
         public void Delete(int productId)
         {
             _productDal.Delete(new Product { ProductId = productId });
         }
-        [CacheAspect(duration: 1)]
-        [PerformanceAspect(5)]
+     //   [CacheAspect(duration: 1)]
+       // [PerformanceAspect(5)]
         public List<Product> GetAll(string productName)
         {
-            Thread.Sleep(6000);
+           // Thread.Sleep(6000);
             return _productDal.GetList(p => p.ProductName == productName || productName == null);
         }
 
@@ -97,15 +95,5 @@ namespace StoreSystem.Business.Concrete
             _productDal.Update(product);
         }
 
-        //[ValidationAspect(typeof(ProductValidator))]
-        //public string Update(Product product)
-        //{
-        //    var validateResult = _productValidator.Validate(product);
-        //    if (validateResult.IsValid)
-        //    {
-        //        _productDal.Update(product);
-        //    }
-        //    return validateResult.IsValid ? "Success" : validateResult.Errors.First().ErrorMessage;
-        //}
     }
 }

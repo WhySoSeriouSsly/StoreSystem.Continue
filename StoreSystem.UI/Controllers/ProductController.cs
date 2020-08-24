@@ -1,5 +1,4 @@
-﻿#nullable enable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -70,16 +69,19 @@ namespace StoreSystem.UI.Controllers
 
             _productService.Add(product);
             TempData.Add("message", Messages.ProductAdded);
-            return RedirectToAction("Add");//buraya return view(); dersek add viewini açmaya çalışacak
+            return RedirectToAction("Add");
+            ///buraya return view(); dersek add viewini açmaya çalışacak
             //Böyle olunca category select listi dolu gelemeyecek o yüzden exception vericek 
             //category dolu gelmesi lazım o yüzden hata alırız.
         }
 
         public ActionResult add2()
         {
-            _productService.Add(new Product{ProductName = "NAZIM",CategoryId = 2});
+            _productService.Add(new Product { ProductName = "NAZIM", CategoryId = 2 });
             return Ok();
         }
+
+        #region ManualValidationAction
 
         //[HttpPost]
         //public ActionResult Add(Product product)
@@ -93,6 +95,7 @@ namespace StoreSystem.UI.Controllers
         //    //category dolu gelmesi lazım o yüzden hata alırız.
 
         //}
+        #endregion
 
 
         public ActionResult Update(int productId)
@@ -110,7 +113,7 @@ namespace StoreSystem.UI.Controllers
         [HttpPost]
         public ActionResult Update(Product product)
         {
-            _productService.Update(product); 
+            _productService.Update(product);
             TempData.Add("message", Messages.ProductUpdated);
             return RedirectToAction("Update");
         }
@@ -144,55 +147,14 @@ namespace StoreSystem.UI.Controllers
         }
         public IActionResult ExcelGetir()
         {
-            var result = _fileService.ExcelGetir();
+            var result = _fileService.ExcelFileGet();
 
             return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Guid.NewGuid() + "" + ".xlsx");
         }
         public IActionResult PdfGetir()
         {
-            DataTable dataTable = new DataTable();
-
-            dataTable.Load(ObjectReader.Create(_productService.DocumentsGetAll()));
-
-
-            string fileName = Guid.NewGuid() + ".pdf";
-
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/documents/" + fileName);
-
-            var stream = new FileStream(path, FileMode.Create);
-
-
-
-            Document document = new Document(PageSize.A4, 25f, 25f, 25f, 25f);
-
-            PdfWriter.GetInstance(document, stream);
-
-            document.Open();
-
-
-            PdfPTable pdfPTable = new PdfPTable(dataTable.Columns.Count);
-
-            for (int i = 0; i < dataTable.Columns.Count; i++)
-            {
-                pdfPTable.AddCell(dataTable.Columns[i].ColumnName);
-            }
-
-
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                for (int j = 0; j < dataTable.Columns.Count; j++)
-                {
-                    pdfPTable.AddCell(dataTable.Rows[i][j].ToString());
-                }
-            }
-
-
-
-            document.Add(pdfPTable);
-
-            document.Close();
+            var fileName=_fileService.PdfFileGet();
             return File("/documents/" + fileName, "application/pdf", fileName);
         }
-
     }
 }

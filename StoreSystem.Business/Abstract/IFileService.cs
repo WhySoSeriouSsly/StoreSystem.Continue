@@ -8,7 +8,7 @@ namespace StoreSystem.Business.Abstract
 {
     public interface IFileService
     {
-        byte[] ExcelGetir();
-
-    }
+        byte[] ExcelFileGet();
+        string PdfFileGet();
+        }
 }
