@@ -1,7 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace StoreSystem.Core.CrossCuttingConcerns.Validation
+namespace StoreSystem.Core.CrossCuttingConcerns.Autofac.Validation
 {
     public static class ValidationTool
     {

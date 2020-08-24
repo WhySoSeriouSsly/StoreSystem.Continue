@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StoreSystem.Core.CrossCuttingConcerns.Caching
+namespace StoreSystem.Core.CrossCuttingConcerns.Postsharp.Caching
 {
-    public interface ICacheManager
+    public interface ICacheManagerPostsharp
     {
+
         T Get<T>(string key);
-        object Get(string key);
-        void Add(string key, object data, int duration);
+        void Add(string key, object data, int cacheTime);
         bool IsAdd(string key);
         void Remove(string key);
         void RemoveByPattern(string pattern);
+        void Clear();
     }
 }

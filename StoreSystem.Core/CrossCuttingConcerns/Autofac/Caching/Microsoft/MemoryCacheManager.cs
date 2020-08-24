@@ -7,7 +7,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using StoreSystem.Core.Utilities.IoC;
 
-namespace StoreSystem.Core.CrossCuttingConcerns.Caching.Microsoft
+namespace StoreSystem.Core.CrossCuttingConcerns.Autofac.Caching.Microsoft
 {
     public class MemoryCacheManager : ICacheManager
     {

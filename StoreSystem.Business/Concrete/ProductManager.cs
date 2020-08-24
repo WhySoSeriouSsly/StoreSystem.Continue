@@ -11,7 +11,9 @@ using StoreSystem.Core.Aspects.Autofac.Caching;
 using StoreSystem.Core.Aspects.Autofac.Performance;
 using StoreSystem.Core.Aspects.Autofac.Transaction;
 using StoreSystem.Core.Aspects.Autofac.Validation;
-using StoreSystem.Core.CrossCuttingConcerns.Validation;
+using StoreSystem.Core.Aspects.Postsharp.Caching;
+using StoreSystem.Core.Aspects.Postsharp.Validation;
+using StoreSystem.Core.CrossCuttingConcerns.Postsharp.Caching.Microsoft;
 using StoreSystem.DataAcccesLayer.Abstract;
 using StoreSystem.DataAcccesLayer.Concrete.EntityFramework;
 using StoreSystem.Entities.Concrete;
@@ -26,7 +28,7 @@ namespace StoreSystem.Business.Concrete
         {
             _productDal = productDal;  //NHİBERNATE ,DAPPER VAR 
         }
-        
+
         [ValidationAspect(typeof(ProductValidator))]
         [CacheRemoveAspect("IProductService.Get")]
         public void Add(Product product)
@@ -44,17 +46,21 @@ namespace StoreSystem.Business.Concrete
         //    // throw new ValidationException(validateResult.Errors);
 
         //}
-
+        /// <summary>
+        ///
+        /// 
+        /// </summary>
+        /// <param name="productId"></param>
 
         public void Delete(int productId)
         {
             _productDal.Delete(new Product { ProductId = productId });
         }
-        //[CacheAspect(duration: 1)]
+        [CacheAspect(duration: 1)]
         [PerformanceAspect(5)]
         public List<Product> GetAll(string productName)
         {
-           // Thread.Sleep(6000);
+            Thread.Sleep(6000);
             return _productDal.GetList(p => p.ProductName == productName || productName == null);
         }
 

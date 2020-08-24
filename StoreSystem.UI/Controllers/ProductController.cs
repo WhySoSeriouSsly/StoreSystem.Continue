@@ -30,10 +30,12 @@ namespace StoreSystem.UI.Controllers
     {
         private IProductService _productService;
         private ICategoryService _categoryService;
-        public ProductController(IProductService productService, ICategoryService categoryService)
+        private IFileService _fileService;
+        public ProductController(IProductService productService, ICategoryService categoryService, IFileService fileService)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _fileService = fileService;
         }
         [HttpGet]
         public IActionResult List(string productName)
@@ -134,7 +136,7 @@ namespace StoreSystem.UI.Controllers
         {
             _productService.TransactionalOperations(new Product
             {
-                ProductName = "Melike",
+                ProductName = "Çeto",
                 CategoryId = 2,
                 UnitPrice = 5
             });
@@ -142,16 +144,9 @@ namespace StoreSystem.UI.Controllers
         }
         public IActionResult ExcelGetir()
         {
-            ExcelPackage excelPackage = new ExcelPackage();
+            var result = _fileService.ExcelGetir();
 
-            var excelBlank = excelPackage.Workbook.Worksheets.Add("ProductList");
-
-            excelBlank.Cells["A1"].LoadFromCollection(_productService.DocumentsGetAll(), true, OfficeOpenXml.Table.TableStyles.Light15);
-
-
-            var bytes = excelPackage.GetAsByteArray();
-
-            return File(bytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Guid.NewGuid() + "" + ".xlsx");
+            return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Guid.NewGuid() + "" + ".xlsx");
         }
         public IActionResult PdfGetir()
         {

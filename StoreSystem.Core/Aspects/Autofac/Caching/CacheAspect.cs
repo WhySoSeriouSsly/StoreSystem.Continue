@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using Castle.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
-using StoreSystem.Core.CrossCuttingConcerns.Caching;
-using StoreSystem.Core.CrossCuttingConcerns.Caching.Microsoft;
+using StoreSystem.Core.CrossCuttingConcerns.Autofac.Caching;
+using StoreSystem.Core.CrossCuttingConcerns.Autofac.Caching;
+using StoreSystem.Core.CrossCuttingConcerns.Autofac.Caching.Microsoft;
 using StoreSystem.Core.Utilities.Interceptors;
 using StoreSystem.Core.Utilities.IoC;
 

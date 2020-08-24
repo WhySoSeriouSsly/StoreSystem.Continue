@@ -5,15 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CrossCuttingConcerns\Logging\**" />
+    <EmbeddedResource Remove="CrossCuttingConcerns\Logging\**" />
+    <None Remove="CrossCuttingConcerns\Logging\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Aspects\Autofac\Exception\" />
     <Folder Include="Aspects\Autofac\Logging\" />
-    <Folder Include="Aspects\Postsharp\Caching\" />
     <Folder Include="Aspects\Postsharp\Exception\" />
     <Folder Include="Aspects\Postsharp\Logging\" />
     <Folder Include="Aspects\Postsharp\Performance\" />
     <Folder Include="Aspects\Postsharp\Transaction\" />
-    <Folder Include="Aspects\Postsharp\Validation\" />
-    <Folder Include="CrossCuttingConcerns\Logging\" />
+    <Folder Include="CrossCuttingConcerns\Autofac\Logging\" />
+    <Folder Include="CrossCuttingConcerns\Postsharp\Logging\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +29,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.7" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.7" />
     <PackageReference Include="PostSharp" Version="4.2.17" />
+    <PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
   </ItemGroup>
 
 </Project>

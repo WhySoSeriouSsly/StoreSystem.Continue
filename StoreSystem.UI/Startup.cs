@@ -8,8 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StoreSystem.Business.ValidationRules.FluentValidation;
-using StoreSystem.Core.CrossCuttingConcerns.Caching;
-using StoreSystem.Core.CrossCuttingConcerns.Caching.Microsoft;
+using StoreSystem.Core.CrossCuttingConcerns.Autofac.Caching;
+using StoreSystem.Core.CrossCuttingConcerns.Autofac.Caching.Microsoft;
 using StoreSystem.Core.DependencyResolvers;
 using StoreSystem.Core.Extensions;
 using StoreSystem.Core.Utilities.IoC;
@@ -29,7 +29,8 @@ namespace StoreSystem.UI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddFluentValidation();
+            services.AddControllersWithViews();
+          //  services.AddTransient<IValidator<Product>, ProductValidator>();
             services.AddDependencyResolvers(new ICoreModule[]
             {
                 new CoreModule(),

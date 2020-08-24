@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Castle.DynamicProxy;
 using FluentValidation;
-using StoreSystem.Core.CrossCuttingConcerns.Validation;
+using StoreSystem.Core.CrossCuttingConcerns.Autofac.Validation;
 using StoreSystem.Core.Utilities.Interceptors;
 using StoreSystem.Core.Utilities.Messages;
 

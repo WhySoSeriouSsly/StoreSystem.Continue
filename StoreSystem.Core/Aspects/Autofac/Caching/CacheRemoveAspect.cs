@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Castle.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
-using StoreSystem.Core.CrossCuttingConcerns.Caching;
+using StoreSystem.Core.CrossCuttingConcerns.Autofac.Caching;
 using StoreSystem.Core.Utilities.Interceptors;
 using StoreSystem.Core.Utilities.IoC;
 

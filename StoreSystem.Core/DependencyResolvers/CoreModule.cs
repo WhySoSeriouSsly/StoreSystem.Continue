@@ -5,8 +5,8 @@ using System.Text;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using StoreSystem.Core.CrossCuttingConcerns.Caching;
-using StoreSystem.Core.CrossCuttingConcerns.Caching.Microsoft;
+using StoreSystem.Core.CrossCuttingConcerns.Autofac.Caching;
+using StoreSystem.Core.CrossCuttingConcerns.Autofac.Caching.Microsoft;
 using StoreSystem.Core.Utilities.IoC;
 
 namespace StoreSystem.Core.DependencyResolvers
