@@ -1,0 +1,33 @@
+﻿@using StoreSystem.Entities.Concrete
+@model IEnumerable<Product>
+@{ ViewBag.Title = "Product/Add"; }
+
+
+<h2>List Desceding product</h2>
+
+<div>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <td>Product Name</td>
+                <td>Unit Price</td>
+                <td>Units In Stock</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+
+        @foreach (var product in Model)
+        {
+
+            <tr>
+                <td>@product.ProductName</td>
+                <td>@product.UnitPrice</td>
+                <td>@product.UnitsInStock</td>
+                @*<td><a class="btn btn-xs btn-info" asp-controller="Product" asp-action="Update" asp-route-productId="@product.ProductId">Update</a></td>
+                <td><a class="btn btn-xs btn-danger" asp-controller="Product" asp-action="Delete" asp-route-productId="@product.ProductId">Delete</a></td>*@
+            </tr>
+        }
+    </table>
+</div>

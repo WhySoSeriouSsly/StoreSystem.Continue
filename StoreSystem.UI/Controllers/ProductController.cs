@@ -156,5 +156,11 @@ namespace StoreSystem.UI.Controllers
             var fileName=_fileService.PdfFileGet();
             return File("/documents/" + fileName, "application/pdf", fileName);
         }
+
+        public IActionResult GetaAllDesc()
+        {
+            var result = _productService.getAllDesc();
+            return View(result);
+        }
     }
 }

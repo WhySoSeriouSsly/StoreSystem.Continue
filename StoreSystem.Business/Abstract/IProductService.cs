@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using StoreSystem.Entities.Concrete;
 
@@ -16,5 +17,6 @@ namespace StoreSystem.Business.Abstract
         void TransactionalOperations(Product product);
         Product GetById(int productId);
         List<Product> GetByName(string productName);
+        IEnumerable<Product> getAllDesc();
     }
 }

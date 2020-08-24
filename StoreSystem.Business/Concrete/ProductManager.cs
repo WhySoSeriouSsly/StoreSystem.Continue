@@ -61,6 +61,11 @@ namespace StoreSystem.Business.Concrete
            // Thread.Sleep(6000);
             return _productDal.GetList(p => p.ProductName == productName || productName == null);
         }
+        public IEnumerable<Product> getAllDesc()
+        {
+            // Thread.Sleep(6000);
+            return _productDal.GetList().OrderByDescending(t=>t.ProductId).Take(10);
+        }
 
         public List<Product> DocumentsGetAll()
         {
